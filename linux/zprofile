@@ -1,0 +1,2 @@
+# Login zsh doesn't read ~/.profile, so load it (PATH with ~/.local/bin and the rest).
+[ -f ~/.profile ] && emulate sh -c '. ~/.profile'

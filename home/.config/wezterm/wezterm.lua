@@ -10,6 +10,14 @@ config.macos_window_background_blur = 50
 config.hide_tab_bar_if_only_one_tab = true
 config.window_decorations = "RESIZE"
 
+-- Linux (Ubuntu, GNOME): run under XWayland so GNOME draws its native title bar with
+-- minimize/maximize/close, and use a smaller font size (15 is sized for macOS points).
+if wezterm.target_triple:find("linux") then
+	config.enable_wayland = false
+	config.window_decorations = "TITLE|RESIZE"
+	config.font_size = 12.0
+end
+
 -- Dim unfocused windows so the focused one is obvious at a glance.
 local UNFOCUSED_FOREGROUND_TEXT_HSB = { hue = 1.0, saturation = 0.25, brightness = 0.45 }
 local UNFOCUSED_WINDOW_BACKGROUND_OPACITY = 0.62

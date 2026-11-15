@@ -1,0 +1,37 @@
+# zsh config for Ubuntu - the Linux counterpart of programs.zsh and
+# programs.starship in home.nix. Linked to ~/.zshrc by linux/install.sh.
+
+# History
+HISTFILE=~/.zsh_history
+HISTSIZE=50000
+SAVEHIST=50000
+setopt share_history hist_ignore_dups hist_ignore_space
+
+# Completion
+autoload -Uz compinit && compinit
+
+# Plugins from apt (zsh-autosuggestions, zsh-syntax-highlighting)
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh   # ghost text from history
+bindkey '^f' autosuggest-accept
+
+# Aliases (same as home.nix)
+alias ..='cd ..'
+alias add='git add .'
+alias push='git push'
+alias pull='git pull'
+alias m='git switch main'
+alias cc='claude --dangerously-skip-permissions'
+alias co='codex --full-auto'
+
+# Ubuntu ships fd as fdfind
+command -v fd >/dev/null || alias fd='fdfind'
+
+command -v nvim >/dev/null && export EDITOR=nvim
+
+# fzf key bindings: Ctrl-R history, Ctrl-T files, Alt-C cd
+source <(fzf --zsh) 2>/dev/null
+
+eval "$(starship init zsh)"
+
+# Must be sourced last
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh   # commands turn green when valid
